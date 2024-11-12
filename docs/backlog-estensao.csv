@@ -1,0 +1,38 @@
+Work Item Type,Title 1,Title 2,Title 3,Title 4,Tags,Description,Iteration Path,Area Path,Assigned To,Original Estimate,Remaining Work
+Epic,Estrutura de projeto,,,,Infra,Criar Recursos na Azure e repositórios no Github,RepositoryTest\Iteration 1,RepositoryTest, jpcabana1,6,6
+Feature,,Azure AI Search,,,Infra,,RepositoryTest\Iteration 1,RepositoryTest, jpcabana1,6,6
+User Story,,,Schema Search,,Infra,Definir datasources/skillsets/index/indexer,RepositoryTest\Iteration 1,RepositoryTest, jpcabana1,6,6
+Task,,,,Datasource,Infra,,RepositoryTest\Iteration 1,RepositoryTest, jpcabana1,6,6
+Task,,,,Skillsets,Infra,,RepositoryTest\Iteration 1,RepositoryTest, jpcabana1,6,6
+Task,,,,Definição de Index,Infra,,RepositoryTest\Iteration 1,RepositoryTest, jpcabana1,6,6
+Task,,,,Indexadores,Infra,,RepositoryTest\Iteration 1,RepositoryTest, jpcabana1,6,6
+Task,,,,Tracking,Infra,Habilitar função tracking no database e tabela Recipe,RepositoryTest\Iteration 1,RepositoryTest, jpcabana1,6,6
+Feature,,Azure SQL Database,,,Infra,,RepositoryTest\Iteration 1,RepositoryTest, jpcabana1,6,6
+User Story,,,Schema DB,,Desenvolvimento,Gerar scripts de tabela,RepositoryTest\Iteration 1,RepositoryTest, jpcabana1,6,6
+Task,,,,Users Table,Desenvolvimento,Cadastro de usuários,RepositoryTest\Iteration 1,RepositoryTest, jpcabana1,6,6
+Task,,,,Recipe Table,Desenvolvimento,Conteúdo de receitas que será indexado no Azure AI Search,RepositoryTest\Iteration 1,RepositoryTest, jpcabana1,6,6
+Task,,,,Favorites Table,Desenvolvimento,Receitas favoritadas pelo usuário,RepositoryTest\Iteration 1,RepositoryTest, jpcabana1,6,6
+Feature,,Repositório GitHub,,,Infra,,RepositoryTest\Iteration 1,RepositoryTest, jpcabana1,6,6
+User Story,,,Estruturar repositório,,Infra,Diretórios/README/etc...,RepositoryTest\Iteration 1,RepositoryTest, jpcabana1,6,6
+Task,,,,App,Infra,,RepositoryTest\Iteration 1,RepositoryTest, jpcabana1,6,6
+Task,,,,Api,Infra,,RepositoryTest\Iteration 1,RepositoryTest, jpcabana1,6,6
+Task,,,,README.md,Infra,,RepositoryTest\Iteration 1,RepositoryTest, jpcabana1,6,6
+Task,,,,Dockerfile,Infra,,RepositoryTest\Iteration 1,RepositoryTest, jpcabana1,6,6
+Task,,,,Scripts,Desenvolvimento,,RepositoryTest\Iteration 1,RepositoryTest, jpcabana1,6,6
+Epic,App Receitas,,,,Desenvolvimento,Implementação do aplicativo de receitas: frontend/backend/infra de cloud,RepositoryTest\Iteration 2,RepositoryTest, jpcabana1,6,6
+Feature,,Login,,,Desenvolvimento,Implementar Service de Login/Utils/Repositório Users,RepositoryTest\Iteration 2,RepositoryTest, jpcabana1,6,6
+User Story,,,Implementar cconfigurações de usuário,,Desenvolvimento,,RepositoryTest\Iteration 2,RepositoryTest, jpcabana1,6,6
+Task,,,,JWT,Desenvolvimento,,RepositoryTest\Iteration 2,RepositoryTest, jpcabana1,6,6
+Task,,,,Variáveis de Ambiente,Desenvolvimento,Key/Issuer/Audience/ExpireMinutes,RepositoryTest\Iteration 2,RepositoryTest, jpcabana1,6,6
+Task,,,,Código Startup.cs,Desenvolvimento,Cconfiguração .NET,RepositoryTest\Iteration 2,RepositoryTest, jpcabana1,6,6
+Task,,,,Implementação Geral,Desenvolvimento,Dtos/Models/Controllers/Services/Repositórios/Mappers,RepositoryTest\Iteration 2,RepositoryTest, jpcabana1,6,6
+Task,,,,Home,Desenvolvimento,Home,RepositoryTest\Iteration 2,RepositoryTest, jpcabana1,6,6
+Task,,,,Botão de login,Desenvolvimento,Botão de login,RepositoryTest\Iteration 2,RepositoryTest, jpcabana1,6,6
+Feature,,Busca,,,Desenvolvimento,Receitas seráo dividas em café da manhã/almoço e jantar,RepositoryTest\Iteration 2,RepositoryTest, jpcabana1,6,6
+User Story,,,Implementar busca de receitas,,Desenvolvimento,,RepositoryTest\Iteration 2,RepositoryTest, jpcabana1,6,6
+Task,,,,Implementação chamada REST,Desenvolvimento,Dtos/Models/Controllers/Services/Repositórios/Mappers,RepositoryTest\Iteration 2,RepositoryTest, jpcabana1,6,6
+Task,,,,Filtrar buscas de acordo com o horário,Desenvolvimento,,RepositoryTest\Iteration 2,RepositoryTest, jpcabana1,6,6
+Task,,,,Tela de busca,Desenvolvimento,,RepositoryTest\Iteration 2,RepositoryTest, jpcabana1,6,6
+Task,,,,Resultados,Desenvolvimento,,RepositoryTest\Iteration 2,RepositoryTest, jpcabana1,6,6
+Task,,,,Modal de detalhes,Desenvolvimento,,RepositoryTest\Iteration 2,RepositoryTest, jpcabana1,6,6
+Feature,,Favoritar receitas,,,Desenvolvimento,Salvar receitas favoritas do usuário,RepositoryTest\Iteration 2,RepositoryTest, jpcabana1,6,6
