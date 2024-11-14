@@ -2,10 +2,6 @@ using api.dto;
 using api.model;
 using Azure;
 using Azure.Search.Documents;
-using Azure.Search.Documents.Indexes;
-using Azure.Search.Documents.Models;
-using Newtonsoft.Json;
-using System.Net.Http;
 
 namespace api.service;
 
@@ -13,7 +9,7 @@ public class SearchService : ISearchService
 {
     private readonly SearchClient _srchclient;
     private readonly AppSettings _appSettings;
-    
+
     public SearchService(AppSettings appSettings)
     {
         _appSettings = appSettings;

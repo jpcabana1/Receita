@@ -1,6 +1,5 @@
 using api.dto;
 using api.model;
-using Microsoft.EntityFrameworkCore;
 
 namespace api.service;
 

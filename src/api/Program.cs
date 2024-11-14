@@ -3,9 +3,6 @@ using api.dto;
 using api.mapper;
 using api.model;
 using api.service;
-using AutoMapper;
-using Azure;
-using Azure.Search.Documents;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -45,7 +42,8 @@ builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IRecipeService, RecipeService>();
 builder.Services.AddScoped<ISearchService, SearchService>();
-builder.Services.AddSingleton<AppSettings>(o => new(){
+builder.Services.AddSingleton<AppSettings>(o => new()
+{
     AzureEndpoint = configuration["AzureSearch:Endpoint"] ?? string.Empty,
     AzureIndex = configuration["AzureSearch:Index"] ?? string.Empty,
     AzureApiKey = configuration["AzureSearch:Key"] ?? string.Empty,
@@ -57,6 +55,18 @@ builder.Services.AddSingleton<AppSettings>(o => new(){
 builder.Services.AddAuthorization();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddCors(options =>
+                {
+                    options
+                        .AddDefaultPolicy(builder =>
+                        {
+                            builder
+                                .AllowAnyOrigin()
+                                .AllowAnyHeader()
+                                .AllowAnyMethod();
+                        });
+                });
 
 var app = builder.Build();
 app.UseAuthentication();
