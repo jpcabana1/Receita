@@ -1,9 +1,10 @@
 using System.ComponentModel.DataAnnotations;
 
-public class User
+namespace api.model;
+public class Login
 {
     [Key]
-    public int Id { get; set; }
+    public long Id { get; set; }
     public string Username { get; set; } = null!;
     public string Password { get; set; } = null!;
 }

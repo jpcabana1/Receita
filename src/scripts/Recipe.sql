@@ -1,0 +1,9 @@
+CREATE TABLE Recipe (
+    Id INT PRIMARY KEY IDENTITY(1,1),
+    Nome NVARCHAR(255) NOT NULL,
+    Thumbnail NVARCHAR(MAX) NOT NULL,
+    Descricao NVARCHAR(MAX) NOT NULL,
+    Ingredientes NVARCHAR(MAX) NOT NULL,
+    ModoPreparo NVARCHAR(MAX) NOT NULL,
+    Tipo NVARCHAR(50) NOT NULL
+);
