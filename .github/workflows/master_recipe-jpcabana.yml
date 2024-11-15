@@ -21,20 +21,11 @@ jobs:
         with:
           dotnet-version: '9.x'
      
-      - name: print dir1
-        run: ls
-      
       - name: Change dir
-        run: cd src/api
-
-      - name: print dir2
-        run: ls
-        
-      - name: echo 
-        run: echo ${{env.DOTNET_ROOT}}
+        run: cd src/api;ls
 
       - name: Build with dotnet
-        run: dotnet build --configuration Release
+        run: cd src/api;dotnet build --configuration Release
 
       - name: dotnet publish
         run: dotnet publish -c Release -o "${{env.DOTNET_ROOT}}/myapp"
