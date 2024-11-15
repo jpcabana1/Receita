@@ -1,8 +1,36 @@
 import React, { useEffect, useContext, createContext, useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, FlatList, ActivityIndicator, Modal, TouchableOpacity, Image } from 'react-native';
 
+export const DataContext = createContext();
+const host = "https://recipe-jpcabana-bpdjekggbgbrb8cy.brazilsouth-01.azurewebsites.net/"
 
+const App = () => {
+    return (
+        <DataProvider>
+            <View style={styles.container}>
+                <AuthenticationHandlerComponent />
+            </View>
+        </DataProvider>
+    );
+};
 
+const AuthenticationHandlerComponent = () => {
+    const { token } = useContext(DataContext);
+
+    return (
+        token !== "" ? <SearchScreen /> : <LoginScreen />
+    );
+}
+
+export const DataProvider = ({ children }) => {
+    const [token, setToken] = useState("");
+
+    return (
+        <DataContext.Provider value={{ token, setToken }}>
+            {children}
+        </DataContext.Provider>
+    );
+};
 
 const LoginScreen = () => {
     const [username, setUsername] = useState('');
@@ -10,7 +38,6 @@ const LoginScreen = () => {
     const { setToken } = useContext(DataContext);
 
     const handleLogin = () => {
-        // if (username.trim() !== '' && password.trim() !== '') {
         fetch(`${host}/login`, {
             method: "POST",
             headers: {
@@ -27,9 +54,6 @@ const LoginScreen = () => {
             .then(result => setToken(result.token))
             .catch(error => alert(`Credenciais inválidas`))
 
-        // } else {
-        //     alert('Credenciais inválidas');
-        // }
     };
 
     return (
@@ -129,8 +153,6 @@ const SearchScreen = () => {
                 <Button title="Buscar" onPress={handleSearch} />
                 <Button color="red" title="Sair" onPress={() => setToken("")} />
             </View>
-            {/* <Button title="Buscar" onPress={handleSearch} />
-            <Button style={styles.sair} title="Sair" onPress={() => setToken("")} /> */}
 
             {loading ? (
                 <ActivityIndicator size="large" color="#0000ff" style={styles.loading} />
@@ -189,36 +211,6 @@ const SearchScreen = () => {
 };
 
 
-const AuthenticationHandlerComponent = () => {
-    const { token } = useContext(DataContext);
-
-    return (
-        token !== "" ? <SearchScreen /> : <LoginScreen />
-    );
-}
-
-export const DataContext = createContext();
-const host = "https://recipe-jpcabana-bpdjekggbgbrb8cy.brazilsouth-01.azurewebsites.net/"
-
-export const DataProvider = ({ children }) => {
-    const [token, setToken] = useState("");
-
-    return (
-        <DataContext.Provider value={{ token, setToken }}>
-            {children}
-        </DataContext.Provider>
-    );
-};
-
-const App = () => {
-    return (
-        <DataProvider>
-            <View style={styles.container}>
-                <AuthenticationHandlerComponent />
-            </View>
-        </DataProvider>
-    );
-};
 
 const styles = StyleSheet.create({
     buttonRow: {
