@@ -20,12 +20,16 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '9.x'
-
-      - name: print dir
+     
+      - name: print dir1
         run: ls
       
       - name: Change dir
         run: cd src/api
+
+      - name: print dir2
+        run: ls
+
 
       - name: Build with dotnet
         run: dotnet build --configuration Release
