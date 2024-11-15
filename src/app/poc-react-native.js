@@ -1,49 +1,35 @@
-import React, { useState } from 'react';
+import React, { useEffect, useContext, createContext, useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, FlatList, ActivityIndicator, Modal, TouchableOpacity, Image } from 'react-native';
 
 
-const host = "https://recipe-jpcabana-bpdjekggbgbrb8cy.brazilsouth-01.azurewebsites.net/"
-
-export async function login(username, password) {
-    const myHeaders = new Headers();
-    myHeaders.append("accept", "*/*");
-    myHeaders.append("Content-Type", "application/json");
 
 
-    const raw = JSON.stringify({
-        "username": username,
-        "password": password
-    });
-
-    const requestOptions = {
-        method: "POST",
-        headers: myHeaders,
-        body: raw,
-        redirect: "follow"
-    };
-    try {
-        const response = await fetch(`${host}/login`, requestOptions);
-        console.log(result);
-        return await response.json();
-    } catch (error) {
-        console.error(error);
-        return {}
-    }
-}
-
-
-const LoginScreen = ({ onLogin }) => {
+const LoginScreen = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const { setToken } = useContext(DataContext);
 
     const handleLogin = () => {
-        // Lógica de autenticação (substitua por sua lógica de validação)
-        if (username.trim() !== '' && password.trim() !== '') {
+        // if (username.trim() !== '' && password.trim() !== '') {
+        fetch(`${host}/login`, {
+            method: "POST",
+            headers: {
+                "accept": "*/*",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                "username": username,
+                "password": password
+            }),
+            redirect: "follow"
+        })
+            .then(res => res.json())
+            .then(result => setToken(result.token))
+            .catch(error => alert(`Credenciais inválidas`))
 
-            onLogin();
-        } else {
-            alert('Credenciais inválidas');
-        }
+        // } else {
+        //     alert('Credenciais inválidas');
+        // }
     };
 
     return (
@@ -73,17 +59,18 @@ const SearchScreen = () => {
     const [loading, setLoading] = useState(false);
     const [modalVisible, setModalVisible] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
-    const [url, setUrl] = useState(host + "/Search");
+    const { token, } = useContext(DataContext);
+    const { setToken, } = useContext(DataContext);
 
     const handleSearch = async () => {
         setLoading(true);
-        console.log(url)
+
         const myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
-        myHeaders.append("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6Im1hcmlhIiwibmJmIjoxNzMxNjMyNDk0LCJleHAiOjE3MzE2MzYwOTQsImlhdCI6MTczMTYzMjQ5NCwiaXNzIjoicmVjaXBlLWlzc3VlciIsImF1ZCI6InJlY2lwZS11c2VycyJ9.lvUoM6XNSySFYtoJTk1yFsZ3Qzzjss_cR4Nuhx5mHQ8");
+        myHeaders.append("Authorization", `Bearer ${token}`);
 
         const raw = JSON.stringify({
-            "search": "*",
+            "search": searchText == '' ? "*" : searchText,
             "select": "",
             "filter": "",
             "count": true,
@@ -97,8 +84,8 @@ const SearchScreen = () => {
             body: raw,
             redirect: "follow"
         };
-
-        fetch(host +"/Search", requestOptions)
+        console.log(token)
+        fetch(host + "/Search", requestOptions)
             .then((response) => response.json())
             .then((result) => {
                 console.log(result)
@@ -120,6 +107,14 @@ const SearchScreen = () => {
         setSelectedItem(null);
     };
 
+    useEffect(() => {
+        handleSearch()
+        return () => {
+            console.log("Component unmounted!");
+        }
+    }
+        , []);
+
     return (
         <View style={styles.container}>
             <Text style={styles.title}>Busca</Text>
@@ -129,7 +124,13 @@ const SearchScreen = () => {
                 value={searchText}
                 onChangeText={(text) => setSearchText(text)}
             />
-            <Button title="Buscar" onPress={handleSearch} />
+
+            <View style={styles.buttonRow}>
+                <Button title="Buscar" onPress={handleSearch} />
+                <Button color="red" title="Sair" onPress={() => setToken("")} />
+            </View>
+            {/* <Button title="Buscar" onPress={handleSearch} />
+            <Button style={styles.sair} title="Sair" onPress={() => setToken("")} /> */}
 
             {loading ? (
                 <ActivityIndicator size="large" color="#0000ff" style={styles.loading} />
@@ -140,7 +141,7 @@ const SearchScreen = () => {
                     renderItem={({ item }) => (
                         <TouchableOpacity onPress={() => openModal(item)}>
                             <View style={styles.resultItem}>
-                                <Image source={{ uri: item.Thumbnail }} style={styles.Thumbnail} />
+                                <Image source={{ uri: item.thumbnail }} style={styles.thumbnail} />
                                 <Text style={styles.resultTitle}>{item.nome}</Text>
                             </View>
                         </TouchableOpacity>
@@ -187,15 +188,45 @@ const SearchScreen = () => {
     );
 };
 
-const App = () => {
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+const AuthenticationHandlerComponent = () => {
+    const { token } = useContext(DataContext);
 
     return (
-        isAuthenticated ? <SearchScreen /> : <LoginScreen onLogin={() => setIsAuthenticated(true)} />
+        token !== "" ? <SearchScreen /> : <LoginScreen />
+    );
+}
+
+export const DataContext = createContext();
+const host = "https://recipe-jpcabana-bpdjekggbgbrb8cy.brazilsouth-01.azurewebsites.net/"
+
+export const DataProvider = ({ children }) => {
+    const [token, setToken] = useState("");
+
+    return (
+        <DataContext.Provider value={{ token, setToken }}>
+            {children}
+        </DataContext.Provider>
+    );
+};
+
+const App = () => {
+    return (
+        <DataProvider>
+            <View style={styles.container}>
+                <AuthenticationHandlerComponent />
+            </View>
+        </DataProvider>
     );
 };
 
 const styles = StyleSheet.create({
+    buttonRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        width: '100%',
+        marginBottom: 20,
+    },
     container: {
         flex: 1,
         justifyContent: 'center',
@@ -238,7 +269,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderBottomColor: '#ddd',
     },
-    Thumbnail: {
+    thumbnail: {
         width: 50,
         height: 50,
         borderRadius: 5,
