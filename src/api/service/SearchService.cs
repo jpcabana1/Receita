@@ -1,5 +1,6 @@
 using api.dto;
 using api.model;
+using AutoMapper;
 using Azure;
 using Azure.Search.Documents;
 
@@ -9,14 +10,16 @@ public class SearchService : ISearchService
 {
     private readonly SearchClient _srchclient;
     private readonly AppSettings _appSettings;
+    private readonly IMapper _mapper;
 
-    public SearchService(AppSettings appSettings)
+    public SearchService(AppSettings appSettings, IMapper mapper)
     {
         _appSettings = appSettings;
         _srchclient = new SearchClient(new Uri(_appSettings.AzureEndpoint), _appSettings.AzureIndex, new AzureKeyCredential(_appSettings.AzureApiKey));
+        _mapper = mapper;
     }
 
-    public async Task<List<SearchDto>> SearchRecipesAsync(SearchRequestDto query, CancellationToken cancellationToken)
+    public async Task<List<RecipeDto>> SearchRecipesAsync(SearchRequestDto query, CancellationToken cancellationToken)
     {
         var options = new SearchOptions() {
             Select = {query.Select!},
@@ -28,7 +31,7 @@ public class SearchService : ISearchService
         var result = await _srchclient.SearchAsync<SearchDto>(query.Search, options, cancellationToken);
         return result.Value
             .GetResults()
-            .Select(s => s.Document)
+            .Select(s => _mapper.Map<RecipeDto>(s.Document))
             .ToList();
     }
 }

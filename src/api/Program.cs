@@ -30,6 +30,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 #region mapper    
 builder.Services.AddAutoMapper(typeof(RecipeProfile));
+builder.Services.AddAutoMapper(typeof(SearchProfile));
 #endregion
 
 #region database
@@ -67,6 +68,7 @@ builder.Services.AddCors(options =>
                                 .AllowAnyMethod();
                         });
                 });
+builder.WebHost.UseUrls("http://0.0.0.0:5000", "http://0.0.0.0:5273", "https://0.0.0.0:7191");
 
 var app = builder.Build();
 app.UseAuthentication();
@@ -76,7 +78,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
-    // app.UseHttpsRedirection();
+    app.UseHttpsRedirection();
 }
 
 
