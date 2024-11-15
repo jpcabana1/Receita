@@ -1,8 +1,6 @@
 # Receita
 
 
-<video src="./docs/record.mp4"></video>
-
 #### Projeto de extensão da faculdade
 
 - Azure DevOps 
@@ -14,6 +12,10 @@
 - Azure App Service
 - Pipeline CI/CD
   - GitHub Actions
+
+
+## Apresentação
+![](./docs/record.gif)
 
 
 ### .NET Nuget
