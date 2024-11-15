@@ -25,10 +25,10 @@ jobs:
         run: cd src/api;ls
 
       - name: Build with dotnet
-        run: cd src/api;dotnet build --configuration Release
+        run: cd src/api;dotnet build --configuration Release;ls
 
       - name: dotnet publish
-        run: dotnet publish -c Release -o "${{env.DOTNET_ROOT}}/myapp"
+        run: cd src/api;dotnet publish -c Release -o "${{env.DOTNET_ROOT}}/myapp";ls
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
