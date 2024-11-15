@@ -1,5 +1,20 @@
 # Receita
-Projeto de extensão da faculdade
+
+
+<video src="./docs/record.mp4"></video>
+
+#### Projeto de extensão da faculdade
+
+- Azure DevOps 
+  - Board
+  - Delivery plan
+  - Backlog
+- Azure AI Search
+- Azure SQL Database
+- Azure App Service
+- Pipeline CI/CD
+  - GitHub Actions
+
 
 ### .NET Nuget
 ```pwsh
