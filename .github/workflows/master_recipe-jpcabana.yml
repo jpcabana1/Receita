@@ -29,7 +29,9 @@ jobs:
 
       - name: print dir2
         run: ls
-
+        
+      - name: echo 
+        run: echo ${{env.DOTNET_ROOT}}
 
       - name: Build with dotnet
         run: dotnet build --configuration Release
