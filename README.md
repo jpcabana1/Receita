@@ -8,9 +8,9 @@
   - Board
   - Delivery plan
   - Backlog
-- Azure AI Search
-- Azure SQL Database
-- Azure App Service
+- [Azure AI Search](https://azure.microsoft.com/pt-br/products/ai-services/ai-search/?ef_id=_k_Cj0KCQiA_9u5BhCUARIsABbMSPvdmWUXEk_IqbyDvGwZFaBFSjiuvThpJbt6nDQ41_thu445dO3imRAaAijZEALw_wcB_k_&OCID=AIDcmmzmnb0182_SEM__k_Cj0KCQiA_9u5BhCUARIsABbMSPvdmWUXEk_IqbyDvGwZFaBFSjiuvThpJbt6nDQ41_thu445dO3imRAaAijZEALw_wcB_k_&gad_source=1&gclid=Cj0KCQiA_9u5BhCUARIsABbMSPvdmWUXEk_IqbyDvGwZFaBFSjiuvThpJbt6nDQ41_thu445dO3imRAaAijZEALw_wcB)
+- [Azure SQL Database](https://azure.microsoft.com/pt-br/products/azure-sql/#Features)
+- [Azure App Service](https://azure.microsoft.com/pt-br/products/app-service/)
 - Pipeline CI/CD
   - GitHub Actions
 
